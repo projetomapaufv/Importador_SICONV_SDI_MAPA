@@ -1,12 +1,13 @@
 from csv import reader
 import mysql.connector
-from database.gerenciador_conexao_bd import connect
+#from database.gerenciador_conexao_bd import connect
+from database.gerenciador_conexao_bd import Connection
 from util.dateUtil import converteData
 from util.stringUtil import checarCampoVazio, removeNonASCIICharacters
 from importersiconv.gerenciador_consultas import getIDConvenio
 
 def salvarTermosAditivos(arquivo_csv_termo_aditivo):
-    db_connection = connect()
+    db_connection = Connection.connect()
 
     numero_linhas_csv = 0
     numero_termos_aditivos = 0
@@ -43,9 +44,11 @@ def salvarTermosAditivos(arquivo_csv_termo_aditivo):
                     str(VL_REPASSE_TA) + ", " + str(VL_CONTRAPARTIDA_TA) + ", " + str(DT_ASSINATURA_TA) + ", " + \
                     str(DT_INICIO_TA) + ", " + str(DT_FIM_TA) + ", '" + str(JUSTIFICATIVA_TA) + "')"
             try:
-                cursor = db_connection.cursor()
+                 #cursor = db_connection.cursor()
+                db_connection = Connection.connect()
+                cursor = Connection.getCursor()
                 cursor.execute(sql)
-                cursor.close()
+                #cursor.close()
                 db_connection.commit()
                 numero_termos_aditivos = numero_termos_aditivos + 1
             except Exception as e:

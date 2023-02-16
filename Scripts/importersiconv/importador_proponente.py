@@ -2,10 +2,11 @@
 # -*- coding: utf-8 -*-
 from csv import reader
 import mysql.connector
-from database.gerenciador_conexao_bd import connect
+#from database.gerenciador_conexao_bd import connect
+from database.gerenciador_conexao_bd import Connection
 
 def salvarProponentes(arquico_csv_proponentes):
-    db_connection = connect()
+    db_connection = Connection.connect()
 
     numero_linhas_csv = 0
     with open(arquico_csv_proponentes, 'r') as arquivo_csv:
@@ -34,9 +35,11 @@ def salvarProponentes(arquico_csv_proponentes):
                         BAIRRO_PROPONENTE, CEP_PROPONENTE, EMAIL_PROPONENTE, TELEFONE_PROPONENTE, FAX_PROPONENTE)
             
             try:
-                cursor = db_connection.cursor()
-                cursor.execute(sql, values)
-                cursor.close()
+                 #cursor = db_connection.cursor()
+                db_connection = Connection.connect()
+                cursor = Connection.getCursor()
+                cursor.execute(sql)
+                #cursor.close()
                 db_connection.commit()
             except:
                 print("Erro ao gravar Proponente %s" % IDENTIF_PROPONENTE)

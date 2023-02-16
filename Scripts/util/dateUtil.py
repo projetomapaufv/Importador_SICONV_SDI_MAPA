@@ -12,3 +12,13 @@ def converteData(data):
     dataStr = dataDate.strftime('%Y-%m-%d')
 
     return "'" + dataStr + "'"
+
+#Converto a data e hora para o formato do MySQL
+def converteDataHora(dataHora):
+    if dataHora == '':
+        return "NULL"
+
+    dataHoraObj = datetime.strptime(dataHora, '%d/%m/%Y %H:%M:%S')
+    dataHoraStr = dataHoraObj.strftime('%Y-%m-%d %H:%M:%S')
+
+    return "'" + dataHoraStr + "'"

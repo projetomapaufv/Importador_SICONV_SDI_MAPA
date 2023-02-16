@@ -2,14 +2,15 @@
 # -*- coding: utf-8 -*-
 from csv import reader
 import mysql.connector
-from database.gerenciador_conexao_bd import connect
+#from database.gerenciador_conexao_bd import connect
+from database.gerenciador_conexao_bd import Connection
 from importersiconv.gerenciador_consultas import getIDProponente 
 from importersiconv.gerenciador_consultas import propostaSDI 
 from datetime import date, datetime
 from util.stringUtil import removeNonASCIICharacters
 
 def salvarPropostas(arquivo_csv_propostas):
-    db_connection = connect()
+    db_connection = Connection.connect()
 
     numero_linhas_csv = 0
     numero_propostas = 0
@@ -107,9 +108,11 @@ def salvarPropostas(arquivo_csv_propostas):
                     str(VL_CONTRAPARTIDA_PROPOSTA) + ")"
 
             try:
-                cursor = db_connection.cursor()
+                 #cursor = db_connection.cursor()
+                db_connection = Connection.connect()
+                cursor = Connection.getCursor()
                 cursor.execute(sql)
-                cursor.close()
+                #cursor.close()
                 db_connection.commit()
                 numero_propostas = numero_propostas + 1
             except:

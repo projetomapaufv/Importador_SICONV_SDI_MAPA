@@ -3,12 +3,13 @@
 
 from csv import reader
 import mysql.connector
-from database.gerenciador_conexao_bd import connect
+#from database.gerenciador_conexao_bd import connect
+from database.gerenciador_conexao_bd import Connection
 
 UG_SDI_MAPA = '420013'
 
 def salvarPropostasSDI(arquivo_csv_convenios):
-    db_connection = connect()
+    db_connection = Connection.connect()
 
     numero_linhas_csv = 0
     numero_propostas = 0

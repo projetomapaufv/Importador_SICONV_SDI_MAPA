@@ -1,17 +1,16 @@
 from csv import reader
 import mysql.connector
-#from database.gerenciador_conexao_bd import connect
 from database.gerenciador_conexao_bd import Connection
 from util.dateUtil import converteData
-from util.stringUtil import checarCampoVazio
+from util.stringUtil import checarCampoVazio, removeNonASCIICharacters
 from importersiconv.gerenciador_consultas import getIDConvenio
 
-def salvarPagamentosTributos(arquivo_csv_pagamento_tributos):
+def salvarIngressosContrapartida(arquivo_csv_ingresso_contrapartida):
     db_connection = Connection.connect()
 
     numero_linhas_csv = 0
-    numero_pagamentos_tributos = 0
-    with open(arquivo_csv_pagamento_tributos, 'r') as arquivo_csv:
+    numero_ingressos_contrapartida = 0
+    with open(arquivo_csv_ingresso_contrapartida, 'r') as arquivo_csv:
         csv_reader = reader(arquivo_csv, delimiter=';')
         for linha in csv_reader:
             ##Leitura dos dados da planilha
@@ -21,18 +20,15 @@ def salvarPagamentosTributos(arquivo_csv_pagamento_tributos):
             numero_linhas_csv = numero_linhas_csv + 1
             #Campos do CSV
             NR_CONVENIO = linha[0].strip()
-            #Sem número do convênio
-            if NR_CONVENIO == "":
-                continue;
             ID_CONVENIO = getIDConvenio(NR_CONVENIO)
             #Convênio não encontrado
             if ID_CONVENIO == 0:
                 continue;
-            DATA_TRIBUTO = converteData(linha[1].strip())
-            VL_PAGO_TRIBUTOS = checarCampoVazio(linha[2].strip().replace(",", "."))
+            DT_INGRESSO_CONTRAPARTIDA = converteData(linha[1].strip())
+            VL_INGRESSO_CONTRAPARTIDA = checarCampoVazio(linha[2].strip().replace(",", "."))
 
-            sql = "INSERT INTO Pagamento_Tributo(ID_Convenio, Data_Tributo, Valor_Pago_Tributo) VALUES(" + \
-                    str(ID_CONVENIO) + ", " + str(DATA_TRIBUTO) + ", " + str(VL_PAGO_TRIBUTOS) + ")"
+            sql = "INSERT INTO Ingresso_Contrapartida(ID_Convenio, Data_Ingresso_Contrapartida, Valor_Ingresso_Contrapartida) \
+                    VALUES(" + str(ID_CONVENIO) + ", " + str(DT_INGRESSO_CONTRAPARTIDA) + ", " + str(VL_INGRESSO_CONTRAPARTIDA) + ")"
             
             try:
                  #cursor = db_connection.cursor()
@@ -41,11 +37,12 @@ def salvarPagamentosTributos(arquivo_csv_pagamento_tributos):
                 cursor.execute(sql)
                 #cursor.close()
                 db_connection.commit()
-                numero_pagamentos_tributos = numero_pagamentos_tributos + 1
+                numero_ingressos_contrapartida = numero_ingressos_contrapartida + 1
             except Exception as e:
-                print("Erro ao gravar Pagamento de Tributo de %s do Convênio %s" % (DATA_TRIBUTO, NR_CONVENIO))
+                print("Erro ao gravar Ingresso de Contrapartida de %s do Convênio %s" % (DT_INGRESSO_CONTRAPARTIDA, NR_CONVENIO))
                 print(str(e))
+                print(sql)
                 continue
         
     
-    print("Gravadas %d Pagamentos de Tributos" % (numero_pagamentos_tributos))
+    print("Gravadas %d Ingressos de Contrapartida" % (numero_ingressos_contrapartida)) 

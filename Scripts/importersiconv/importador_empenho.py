@@ -1,13 +1,14 @@
 from csv import reader
 import mysql.connector
-from database.gerenciador_conexao_bd import connect
+#from database.gerenciador_conexao_bd import connect
+from database.gerenciador_conexao_bd import Connection
 from util.dateUtil import converteData
 from util.stringUtil import checarCampoVazio
 from importersiconv.gerenciador_consultas import getIDConvenio
 
 #Grava os empenhos do Mapa no banco de dados
 def salvarEmpenhos(arquivo_csv_empenhos):
-    db_connection = connect()
+    db_connection = Connection.connect()
 
     numero_linhas_csv = 0
     numero_empenhos = 0
@@ -47,9 +48,11 @@ def salvarEmpenhos(arquivo_csv_empenhos):
                     str(VALOR_EMPENHADO) + ")"
             
             try:
-                cursor = db_connection.cursor()
+                 #cursor = db_connection.cursor()
+                db_connection = Connection.connect()
+                cursor = Connection.getCursor()
                 cursor.execute(sql)
-                cursor.close()
+                #cursor.close()
                 db_connection.commit()
                 numero_empenhos = numero_empenhos + 1
             except Exception as e:

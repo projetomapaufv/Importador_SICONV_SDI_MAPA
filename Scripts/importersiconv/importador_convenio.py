@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 from csv import reader
 import mysql.connector
-from database.gerenciador_conexao_bd import connect
+#from database.gerenciador_conexao_bd import connect
+from database.gerenciador_conexao_bd import Connection
 from datetime import date, datetime
 from importersiconv.gerenciador_consultas import getIDProposta
 from util.stringUtil import checarCampoVazio
@@ -12,7 +13,7 @@ UG_SDI_MAPA = '420013'
 
 #Grava os convênios do Mapa no banco de dados
 def salvarConvenios(arquivo_csv_convenios):
-    db_connection = connect()
+    db_connection = Connection.connect()
 
     numero_linhas_csv = 0
     numero_convenios = 0
@@ -120,9 +121,11 @@ def salvarConvenios(arquivo_csv_convenios):
                     str(VL_SALDO_CONTA) + ", " + VALOR_GLOBAL_ORIGINAL_CONV + ")"
                     
             try:
-                cursor = db_connection.cursor()
+                 #cursor = db_connection.cursor()
+                db_connection = Connection.connect()
+                cursor = Connection.getCursor()
                 cursor.execute(sql)
-                cursor.close()
+                #cursor.close()
                 db_connection.commit()
                 numero_convenios = numero_convenios + 1
             except Exception as e:
