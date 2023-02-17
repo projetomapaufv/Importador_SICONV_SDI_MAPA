@@ -21,6 +21,7 @@ from importersiconv.importador_desbloqueio_cr import salvarDesbloqueiosCR
 from importersiconv.importador_justificativa_proposta import salvarJustificativasPropostas
 from importersiconv.importador_cronograma_desembolso import salvarCronogramaDesembolso
 from importersiconv.importador_historico_situacao import salvarHistoricoSituacao
+from updatersiconv.atualizador_ultima_data_atualizacao import atualizarUltimaDataAtualizacao
 
 
 #@TODO Carregar os caminhos dos arquivos de um arquivo de configuração
@@ -43,26 +44,28 @@ ARQUIVO_DESBLOQUEIO_CR = '/home/vagner/Projeto_MAPA/Arquivos_Siconv/siconv_desbl
 ARQUIVO_JUSTIFICATIVAS_PROPOSTAS = '/home/vagner/Projeto_MAPA/Arquivos_Siconv/siconv_justificativas_proposta.csv'
 ARQUIVO_CRONOGRAMA_DESEMBOLSO = '/home/vagner/Projeto_MAPA/Arquivos_Siconv/siconv_cronograma_desembolso.csv'
 ARQUIVO_HISTORICO_SITUACAO = '/home/vagner/Projeto_MAPA/Arquivos_Siconv/siconv_historico_situacao.csv'
+ARQUIVO_ATUALIZACAO = '/home/vagner/Projeto_MAPA/Arquivos_Siconv/data_carga_siconv.csv'
 
-salvarProponentes(ARQUIVO_PROPONENTES)
-salvarPropostasSDI(ARQUIVO_CONVENIOS)
-salvarPropostas(ARQUIVO_PROPOSTAS)
-salvarEmpenhos(ARQUIVO_EMPENHOS)
-salvarLicitacoes(ARQUIVO_LICITACOES)
-salvarPagamentosTributos(ARQUIVO_PAGAMENTO_TRIBUTOS)
-salvarProrrogaOficio(ARQUIVO_PRORROGA_OFICIO)
-salvarTermosAditivos(ARQUIVO_TERMOS_ADITIVOS)
-salvarMetasCronoFisicas(ARQUIVO_METAS_CRONO_FISICAS)
-salvarEtapasCronoFisicas(ARQUIVO_ETAPAS_CRONO_FISICAS)
-salvarIngressosContrapartida(ARQUIVO_INGRESSOS_CONTRAPARTIDA)
-salvarDesembolsos(ARQUIVO_DESEMBOLSO)
-salvarEmpenhosDesembolsos(ARQUIVO_EMPENHO_DESEMBOLSO)
-salvarPagamentos(ARQUIVO_PAGAMENTOS)
-salvarObtvConvenente(ARQUIVO_OBTV_CONVENENTE)
-salvarDesbloqueiosCR(ARQUIVO_DESBLOQUEIO_CR)
-salvarJustificativasPropostas(ARQUIVO_JUSTIFICATIVAS_PROPOSTAS)
-salvarCronogramaDesembolso(ARQUIVO_CRONOGRAMA_DESEMBOLSO)
-salvarHistoricoSituacao(ARQUIVO_HISTORICO_SITUACAO)
+#salvarProponentes(ARQUIVO_PROPONENTES)
+#salvarPropostasSDI(ARQUIVO_CONVENIOS)
+#salvarPropostas(ARQUIVO_PROPOSTAS)
+#salvarEmpenhos(ARQUIVO_EMPENHOS)
+#salvarLicitacoes(ARQUIVO_LICITACOES)
+#salvarPagamentosTributos(ARQUIVO_PAGAMENTO_TRIBUTOS)
+#salvarProrrogaOficio(ARQUIVO_PRORROGA_OFICIO)
+#salvarTermosAditivos(ARQUIVO_TERMOS_ADITIVOS)
+#salvarMetasCronoFisicas(ARQUIVO_METAS_CRONO_FISICAS)
+#salvarEtapasCronoFisicas(ARQUIVO_ETAPAS_CRONO_FISICAS)
+#salvarIngressosContrapartida(ARQUIVO_INGRESSOS_CONTRAPARTIDA)
+#salvarDesembolsos(ARQUIVO_DESEMBOLSO)
+#salvarEmpenhosDesembolsos(ARQUIVO_EMPENHO_DESEMBOLSO)
+#salvarPagamentos(ARQUIVO_PAGAMENTOS)
+#salvarObtvConvenente(ARQUIVO_OBTV_CONVENENTE)
+#salvarDesbloqueiosCR(ARQUIVO_DESBLOQUEIO_CR)
+#salvarJustificativasPropostas(ARQUIVO_JUSTIFICATIVAS_PROPOSTAS)
+#salvarCronogramaDesembolso(ARQUIVO_CRONOGRAMA_DESEMBOLSO)
+#salvarHistoricoSituacao(ARQUIVO_HISTORICO_SITUACAO)
+atualizarUltimaDataAtualizacao(ARQUIVO_ATUALIZACAO)
 
 #Fecho a conexão
 db_connection = Connection.getConnection()
