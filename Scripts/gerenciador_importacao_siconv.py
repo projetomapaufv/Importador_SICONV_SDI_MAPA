@@ -22,6 +22,7 @@ from importersiconv.importador_justificativa_proposta import salvarJustificativa
 from importersiconv.importador_cronograma_desembolso import salvarCronogramaDesembolso
 from importersiconv.importador_historico_situacao import salvarHistoricoSituacao
 from updatersiconv.atualizador_ultima_data_atualizacao import atualizarUltimaDataAtualizacao
+from importersiconv.importador_emenda import salvarEmendas
 
 
 #@TODO Carregar os caminhos dos arquivos de um arquivo de configuração
@@ -45,6 +46,7 @@ ARQUIVO_JUSTIFICATIVAS_PROPOSTAS = '/home/vagner/Projeto_MAPA/Arquivos_Siconv/si
 ARQUIVO_CRONOGRAMA_DESEMBOLSO = '/home/vagner/Projeto_MAPA/Arquivos_Siconv/siconv_cronograma_desembolso.csv'
 ARQUIVO_HISTORICO_SITUACAO = '/home/vagner/Projeto_MAPA/Arquivos_Siconv/siconv_historico_situacao.csv'
 ARQUIVO_ATUALIZACAO = '/home/vagner/Projeto_MAPA/Arquivos_Siconv/data_carga_siconv.csv'
+ARQUIVO_EMENDAS = '/home/vagner/Projeto_MAPA/Arquivos_Siconv/siconv_emenda.csv'
 
 #salvarProponentes(ARQUIVO_PROPONENTES)
 #salvarPropostasSDI(ARQUIVO_CONVENIOS)
@@ -65,7 +67,8 @@ ARQUIVO_ATUALIZACAO = '/home/vagner/Projeto_MAPA/Arquivos_Siconv/data_carga_sico
 #salvarJustificativasPropostas(ARQUIVO_JUSTIFICATIVAS_PROPOSTAS)
 #salvarCronogramaDesembolso(ARQUIVO_CRONOGRAMA_DESEMBOLSO)
 #salvarHistoricoSituacao(ARQUIVO_HISTORICO_SITUACAO)
-atualizarUltimaDataAtualizacao(ARQUIVO_ATUALIZACAO)
+salvarEmendas(ARQUIVO_EMENDAS)
+#atualizarUltimaDataAtualizacao(ARQUIVO_ATUALIZACAO)
 
 #Fecho a conexão
 db_connection = Connection.getConnection()

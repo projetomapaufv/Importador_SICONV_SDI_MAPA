@@ -68,6 +68,28 @@ def getIDProposta(codigo_proposta_siconv):
         return id_proposta[0]
     else:
         return 0
+
+def getIDPropostaPorNumeroConvenio(nr_convenio):
+    db_connection = Connection.connect()
+
+    sql = "SELECT ID_Proposta FROM Convenio WHERE Nr_Convenio = {numero_convenio_p}".format(numero_convenio_p = nr_convenio)
+    
+    cursor = Connection.getBufferedCursor()
+    cursor.execute(sql)
+
+    proposta_encontrada = False
+    for (ID_Proposta) in cursor:
+        id_proposta = ID_Proposta
+        proposta_encontrada = True
+        break
+
+    #cursor.close()
+    db_connection.commit()
+
+    if proposta_encontrada:
+        return id_proposta[0]
+    else:
+        return 0
     
 def getIDConvenio(numero_convenio):
     #connection = Connection()
